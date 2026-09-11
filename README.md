@@ -1,6 +1,8 @@
-# InexPhone SMS AI Knowledge
+# InexPhone SMS Integration Skill
 
-AI coding knowledge and instructions for integrating the **InexPhone SMS Laravel package** into Laravel applications.
+Official local AI assistant skill for integrating the **InexPhone SMS Laravel package** using OpenAI Codex, Claude Code, Gemini CLI, Cursor, Junie, OpenCode, and other AI coding tools.
+
+This repository packages local source-backed InexPhone SMS package documentation, compact indexes, prompts, examples, and tool-specific instruction files so AI coding tools can help with Laravel SMS integrations without guessing API behavior or crawling external documentation.
 
 Package:
 
@@ -14,156 +16,383 @@ Current documented version:
 v1.2.0
 ```
 
-This repository is designed to provide a shared source of knowledge for:
-
-* OpenAI Codex
-* GitHub Copilot
-* Claude Code
-* Gemini CLI
-* Cursor
-
-The goal is simple:
-
-> Give AI coding assistants reliable, structured knowledge about the InexPhone Laravel SMS package so they can generate correct integration code without guessing API behavior.
-
 ---
 
-# Repository Structure
+# Install
 
-```text
-inexphone-sms-ai/
-│
-├── README.md
-├── SKILL.md
-│
-├── docs/
-│   ├── installation.md
-│   ├── sms.md
-│   ├── otp.md
-│   └── blacklists.md
-│
-├── examples/
-│   ├── sms.md
-│   ├── otp.md
-│   └── blacklists.md
-│
-└── agents/
-    ├── AGENTS.md
-    ├── copilot-instructions.md
-    ├── CLAUDE.md
-    ├── GEMINI.md
-    └── cursor-rules.md
-```
-
----
-
-# How the Repository Works
-
-The repository separates common knowledge from tool-specific instructions.
-
-```text
-                    ┌─────────────┐
-                    │  SKILL.md   │
-                    │ Common Core │
-                    └──────┬──────┘
-                           │
-              ┌────────────┼────────────┐
-              │            │            │
-              ▼            ▼            ▼
-           docs/       examples/     agents/
-              │            │            │
-              └────────────┴────────────┘
-                           │
-          ┌────────────────┼────────────────┐
-          │        │       │       │       │
-          ▼        ▼       ▼       ▼       ▼
-        Codex   Copilot Claude Gemini  Cursor
-```
-
-### `SKILL.md`
-
-Contains the core knowledge that an AI assistant needs to understand the package.
-
-### `docs/`
-
-Contains detailed technical documentation.
-
-### `examples/`
-
-Contains practical Laravel implementation examples.
-
-### `agents/`
-
-Contains instructions adapted for each AI coding assistant.
-
-This prevents the same large documentation from being duplicated across every AI tool.
-
----
-
-# Package Overview
-
-The package provides a Laravel client for the InexPhone SMS API.
-
-API base URL:
-
-```text
-https://smsservice.inexphone.ge/api/v1
-```
-
-The package handles:
-
-* Bearer authentication
-* API requests
-* `Accept-Language`
-* Configurable HTTP timeout
-* SMS operations
-* OTP operations
-* Blacklist lookup
-* API/package exceptions
-
----
-
-# Installation
-
-Install the Laravel package with Composer:
+Clone the repository:
 
 ```bash
-composer require insightsge/laravel-inexphone-sms
+git clone https://github.com/Insights-ge/inexphone-sms-package.git
 ```
 
-Configure the environment:
+Enter the AI knowledge repository:
 
-```env
-INEXPHONE_SMS_BASE_URL=https://smsservice.inexphone.ge/api/v1
-INEXPHONE_SMS_TOKEN=your-api-token
-INEXPHONE_SMS_LANGUAGE=ka
-INEXPHONE_SMS_TIMEOUT=30
+```bash
+cd inexphone-sms-ai
 ```
 
-The API token must remain secret.
+Make the installer executable:
 
-For the complete setup guide, see:
+```bash
+chmod +x install.sh
+```
 
-```text
-docs/installation.md
+Run the installer:
+
+```bash
+./install.sh
+```
+
+When run from inside the cloned `inexphone-sms-ai` repository, the installer installs the AI knowledge into the current target project.
+
+Install into a specific project:
+
+```bash
+./install.sh --target /path/to/your/project
+```
+
+Install for specific tools:
+
+```bash
+./install.sh --target /path/to/your/project --tools codex
+./install.sh --target /path/to/your/project --tools claude
+./install.sh --target /path/to/your/project --tools gemini
+./install.sh --target /path/to/your/project --tools cursor
+./install.sh --target /path/to/your/project --tools junie
+./install.sh --target /path/to/your/project --tools opencode
+./install.sh --target /path/to/your/project --tools all
+```
+
+Dry run:
+
+```bash
+./install.sh --target /path/to/your/project --tools all --dry-run
+```
+
+The installer installs AI instruction files and the shared InexPhone knowledge into the target project.
+
+It:
+
+* Creates tool-specific instruction files where required
+* Installs the shared skill into supported skill directories
+* Creates backups before overwriting existing files or directories
+* Tracks backups for safe restoration during uninstall
+* Keeps package documentation and examples available locally
+* Does not modify application source code
+* Supports dry-run mode
+
+To uninstall generated files safely:
+
+```bash
+./uninstall.sh --target /path/to/your/project --tools all --dry-run
+./uninstall.sh --target /path/to/your/project --tools all
 ```
 
 ---
 
-# Supported API
+# What Gets Installed
 
-## SMS
+The installer uses the common knowledge base:
 
-```php
-Sms::send();
-Sms::sendCommercial();
-Sms::sendBulk();
-
-Sms::list();
-Sms::find();
+```text
+SKILL.md
+docs/
+examples/
 ```
 
-Endpoints:
+Tool-specific instructions are provided separately:
+
+```text
+agents/
+├── AGENTS.md
+├── CLAUDE.md
+├── GEMINI.md
+├── JUNIE.md
+├── OPENCODE.md
+└── cursor-rules.md
+```
+
+For Codex and Gemini, the shared skill is installed at:
+
+```text
+.agents/skills/inexphone-sms-integration-skill/
+```
+
+For Claude Code:
+
+```text
+.claude/skills/inexphone-sms-integration-skill/
+```
+
+For Cursor:
+
+```text
+.cursor/rules/inexphone-sms-integration-skill.mdc
+```
+
+and:
+
+```text
+.cursor/inexphone-sms/
+```
+
+For Junie:
+
+```text
+.junie/AGENTS.md
+```
+
+For OpenCode:
+
+```text
+.opencode/skills/inexphone-sms-integration-skill/
+```
+
+The installer also creates the appropriate root instruction files for tools that use them, such as:
+
+```text
+CLAUDE.md
+GEMINI.md
+```
+
+---
+
+# Usage Examples
+
+Invocation differs by AI tool.
+
+Use slash commands only in tools that expose installed skills as slash commands.
+
+## OpenAI Codex
+
+Codex uses the repository skill package from:
+
+```text
+.agents/skills/inexphone-sms-integration-skill/
+```
+
+Invoke it using natural language or by explicitly mentioning the skill.
+
+```text
+Use inexphone-sms-integration-skill to implement OTP verification in my Laravel application.
+```
+
+```text
+Use inexphone-sms-integration-skill to review my InexPhone SMS integration.
+```
+
+```text
+Use inexphone-sms-integration-skill to debug this failed SMS request.
+```
+
+```text
+Use inexphone-sms-integration-skill to implement bulk SMS sending.
+```
+
+---
+
+## Claude Code
+
+Claude Code uses:
+
+```text
+.claude/skills/inexphone-sms-integration-skill/
+```
+
+The installed skill can be invoked as:
+
+```text
+/inexphone-sms-integration-skill
+```
+
+Examples:
+
+```text
+/inexphone-sms-integration-skill implement OTP verification
+```
+
+```text
+Use the inexphone-sms-integration-skill to review this SMS integration.
+```
+
+```text
+Use the InexPhone source documentation to debug this API response.
+```
+
+---
+
+## Gemini CLI
+
+Gemini uses the project context and:
+
+```text
+GEMINI.md
+```
+
+together with the shared skill:
+
+```text
+.agents/skills/inexphone-sms-integration-skill/
+```
+
+Invoke it using natural language:
+
+```text
+Using inexphone-sms-integration-skill, implement OTP verification in this Laravel project.
+```
+
+```text
+Review this Laravel InexPhone integration for incorrect API usage.
+```
+
+```text
+Use the InexPhone documentation to implement bulk SMS sending.
+```
+
+---
+
+## Cursor
+
+Cursor uses:
+
+```text
+.cursor/rules/inexphone-sms-integration-skill.mdc
+```
+
+and the local knowledge in:
+
+```text
+.cursor/inexphone-sms/
+```
+
+Invoke the skill through natural language:
+
+```text
+Use the InexPhone SMS Integration Skill rules to implement OTP verification.
+```
+
+```text
+Review this SMS integration against the local InexPhone documentation.
+```
+
+```text
+Use the local InexPhone source documentation to implement bulk SMS.
+```
+
+---
+
+## Junie
+
+Junie uses:
+
+```text
+.junie/AGENTS.md
+```
+
+Invoke the skill through natural language:
+
+```text
+Use the InexPhone SMS integration guidelines to implement OTP verification.
+```
+
+```text
+Review this Laravel SMS integration against the local InexPhone documentation.
+```
+
+```text
+Implement SMS sending using the existing InexPhone package.
+```
+
+---
+
+## OpenCode
+
+OpenCode uses:
+
+```text
+.opencode/skills/inexphone-sms-integration-skill/
+```
+
+Invoke the skill by asking for it in natural language:
+
+```text
+Use inexphone-sms-integration-skill to implement OTP verification.
+```
+
+```text
+Use inexphone-sms-integration-skill to review this Laravel SMS integration.
+```
+
+```text
+Use the InexPhone source documentation to debug this SMS request.
+```
+
+---
+
+## Generic AI Coding Tools
+
+Use the local repository as the source of knowledge:
+
+```text
+./inexphone-sms-ai/
+```
+
+Read:
+
+```text
+SKILL.md
+docs/
+examples/
+```
+
+Then ask the AI assistant to use the local InexPhone documentation.
+
+Example:
+
+```text
+Use the local InexPhone SMS integration skill to implement OTP verification in this Laravel project.
+```
+
+---
+
+# What The Skill Helps With
+
+Use this skill for:
+
+* Installing the InexPhone Laravel package
+* Configuring the package
+* Sending SMS
+* Sending commercial SMS
+* Sending bulk SMS
+* Listing SMS messages
+* Finding SMS messages
+* Sending OTP codes
+* Verifying OTP codes
+* Listing blacklists
+* Finding blacklist records
+* Laravel controllers
+* Laravel services
+* Form Requests and validation
+* Error handling
+* API integration
+* HTTP testing
+* Laravel HTTP fakes
+* Integration debugging
+* Code review
+* Package API questions
+* Understanding documented request parameters
+* Understanding documented response structures
+
+The skill is specifically designed to prevent AI assistants from inventing unsupported InexPhone functionality.
+
+---
+
+# Package API
+
+The package currently documents these operations.
+
+## SMS
 
 ```text
 POST /sms/one
@@ -173,99 +402,27 @@ GET  /sms
 GET  /sms/{uuid}
 ```
 
-Detailed documentation:
-
-```text
-docs/sms.md
-```
-
-Examples:
-
-```text
-examples/sms.md
-```
-
----
-
 ## OTP
-
-```php
-Sms::sendOtp();
-Sms::verifyOtp();
-```
-
-Endpoints:
 
 ```text
 POST /otp/send
 POST /otp/verify
 ```
 
-Important:
-
-```php
-Sms::verifyOtp(
-    $phone,
-    $code,
-);
-```
-
-The verification request uses only the phone number and code.
-
-Detailed documentation:
-
-```text
-docs/otp.md
-```
-
-Examples:
-
-```text
-examples/otp.md
-```
-
----
-
 ## Blacklists
-
-```php
-Sms::blacklists();
-Sms::findBlacklist();
-```
-
-Endpoints:
 
 ```text
 GET /blacklists
 GET /blacklists/{id}
 ```
 
-The current documented blacklist API is read-only.
+The currently documented blacklist API is read-only.
 
-There are no documented package methods for:
-
-```text
-add blacklist
-delete blacklist
-remove blacklist
-update blacklist
-```
-
-Detailed documentation:
-
-```text
-docs/blacklists.md
-```
-
-Examples:
-
-```text
-examples/blacklists.md
-```
+Do not invent blacklist creation, deletion, update, or removal methods.
 
 ---
 
-# Basic Usage
+# Basic Laravel Example
 
 Import the facade:
 
@@ -307,332 +464,171 @@ List blacklists:
 $response = Sms::blacklists();
 ```
 
----
-
-# Error Handling
-
-The package provides:
-
-```php
-use Inexphone\Sms\Exceptions\SmsException;
-```
-
-Example:
-
-```php
-try {
-    $response = Sms::send(
-        '+9955XXXXXXXX',
-        'MyApp',
-        'Hello!',
-    );
-} catch (SmsException $e) {
-    report($e);
-}
-```
-
-AI assistants should follow the application's existing Laravel error-handling architecture rather than introducing unnecessary patterns.
+These are simplified examples. AI assistants should read the relevant documentation before implementing production functionality.
 
 ---
 
-# AI Assistant Rules
+# AI Safety Rules
 
-All AI assistants using this repository should follow these rules.
+The skill follows several strict rules.
 
-## 1. Do not guess
+### Do not invent
 
 Never invent:
 
-* API endpoints
-* Package methods
-* Request parameters
-* Response fields
-* Authentication behavior
-* Blacklist operations
-* OTP operations
-
-If something is not documented, inspect the actual package source before making a claim.
-
----
-
-## 2. Use the official package
-
-Use:
-
 ```text
-insightsge/laravel-inexphone-sms
+API endpoints
+Package methods
+Request parameters
+Response fields
+Authentication behavior
+OTP behavior
+Blacklist operations
 ```
 
-Do not replace it with another SMS package unless the user explicitly requests an alternative.
+If required information is not documented, inspect the installed package source.
 
----
+### Inspect before modifying
 
-## 3. Inspect the user's project
+Before changing an existing Laravel application:
 
-Before modifying an existing Laravel application:
+```text
+Inspect Laravel version
+Inspect package version
+Inspect existing architecture
+Search for existing functionality
+Reuse existing conventions
+Make minimal changes
+```
 
-1. Inspect the Laravel version.
-2. Inspect the installed package version.
-3. Inspect the existing application architecture.
-4. Check existing services/controllers/forms.
-5. Reuse existing conventions.
-6. Make the smallest appropriate change.
+### Protect credentials
 
-Do not blindly copy examples into an existing project.
+Never hardcode or expose:
 
----
-
-## 4. Protect credentials
-
-Never place the InexPhone API token in:
-
-* Git
-* JavaScript
-* Blade templates
-* Controllers
-* Public configuration
-* Logs
-* Error responses
+```text
+INEXPHONE_SMS_TOKEN
+```
 
 Use environment variables.
 
----
+### Do not duplicate functionality
 
-## 5. Test safely
+If the project already has a suitable service, controller, validation rule, or integration pattern, reuse it instead of creating unnecessary duplicates.
 
-Normal automated tests should not send real SMS messages.
+### Do not bypass the package
 
-Prefer Laravel HTTP fakes:
+Use the package's existing public API whenever it supports the required operation.
 
-```php
-Http::fake([
-    'smsservice.inexphone.ge/*' => Http::response([
-        'message' => 'ok',
-    ], 200),
-]);
-```
+### Test safely
 
----
+Do not send real SMS messages from normal automated tests.
 
-# Using With Codex
-
-The Codex-specific instructions are located at:
-
-```text
-agents/AGENTS.md
-```
-
-When using this repository as a knowledge source, Codex should read:
-
-```text
-SKILL.md
-docs/
-examples/
-agents/AGENTS.md
-```
-
-The `AGENTS.md` file can be adapted/copied into the target Laravel project's appropriate Codex/agent instruction location.
-
----
-
-# Using With GitHub Copilot
-
-The Copilot-specific instructions are located at:
-
-```text
-agents/copilot-instructions.md
-```
-
-When integrating this knowledge into a Laravel project, adapt the file to the project's Copilot instruction location.
-
-The source file in this repository is intentionally kept separate so the repository can support multiple AI tools without duplicating the entire knowledge base.
-
----
-
-# Using With Claude Code
-
-Claude Code instructions are located at:
-
-```text
-agents/CLAUDE.md
-```
-
-Claude should use:
-
-```text
-SKILL.md
-docs/
-examples/
-agents/CLAUDE.md
-```
-
-The instruction file can be adapted into the target project's Claude configuration.
-
----
-
-# Using With Gemini CLI
-
-Gemini-specific instructions are located at:
-
-```text
-agents/GEMINI.md
-```
-
-Gemini should use the common knowledge from:
-
-```text
-SKILL.md
-docs/
-examples/
-```
-
-together with:
-
-```text
-agents/GEMINI.md
-```
-
----
-
-# Using With Cursor
-
-Cursor-specific rules are located at:
-
-```text
-agents/cursor-rules.md
-```
-
-This file acts as the source/template for Cursor rules.
-
-When installing the knowledge into another Laravel project, adapt the file to that project's Cursor rules structure rather than copying the entire repository into the application.
-
----
-
-# Recommended AI Workflow
-
-When an AI assistant receives a request involving InexPhone SMS:
-
-### Step 1 — Identify the operation
-
-Determine whether the request involves:
-
-```text
-Installation
-SMS
-OTP
-Blacklist
-Error handling
-Testing
-Architecture
-```
-
-### Step 2 — Read the relevant documentation
-
-For example:
-
-```text
-OTP request
-    ↓
-SKILL.md
-    ↓
-docs/otp.md
-    ↓
-examples/otp.md
-```
-
-### Step 3 — Inspect the actual Laravel project
-
-Check:
-
-* Existing package version
-* Controllers
-* Services
-* Requests
-* Routes
-* Tests
-* Configuration
-
-### Step 4 — Implement
-
-Use the documented package API and existing project architecture.
-
-### Step 5 — Verify
-
-Run relevant:
-
-```bash
-php artisan test
-```
-
-and, when configured:
-
-```bash
-vendor/bin/phpstan analyse
-```
+Use Laravel HTTP fakes where appropriate.
 
 ---
 
 # Source of Truth
 
-There are three levels of authority.
-
-## 1. Installed Package Source
-
-When working inside a Laravel application, the installed package source is the highest authority for the exact installed version.
-
-For example:
+The skill follows this priority:
 
 ```text
-vendor/insightsge/laravel-inexphone-sms/
+1. Installed package source
+          ↓
+2. Local skill documentation
+          ↓
+3. AI-generated code
 ```
+
+The installed package source has the highest authority for the exact version being used.
+
+The local documentation is based on the documented package behavior.
+
+AI-generated code is never a source of truth.
+
+If the AI output conflicts with the package source, inspect the actual implementation and correct the generated code.
 
 ---
 
-## 2. This Knowledge Repository
+# Local Documentation
 
-The following files describe the documented behavior:
+The repository contains:
 
 ```text
 SKILL.md
-docs/
-examples/
+```
+
+Common AI knowledge and integration rules.
+
+```text
+docs/installation.md
+```
+
+Package installation and configuration.
+
+```text
+docs/sms.md
+```
+
+SMS API documentation.
+
+```text
+docs/otp.md
+```
+
+OTP API documentation.
+
+```text
+docs/blacklist.md
+```
+
+Blacklist API documentation.
+
+Examples:
+
+```text
+examples/sms.md
+examples/otp.md
+examples/blacklist.md
 ```
 
 ---
 
-## 3. AI-Generated Code
+# Updating The Skill
 
-Generated code is never a source of truth.
+When a new version of:
 
-If generated code conflicts with the package source or documentation, inspect the actual implementation and correct the generated code.
+```text
+insightsge/laravel-inexphone-sms
+```
 
----
+is released:
 
-# Updating This Repository
-
-When the Laravel package receives a new version:
-
-1. Review the package changes.
+1. Review the actual package changes.
 2. Update `SKILL.md`.
-3. Update affected files in `docs/`.
+3. Update affected documentation.
 4. Update affected examples.
-5. Update the AI-specific instruction files if necessary.
-6. Update the documented package version.
-7. Test the examples.
-8. Review for undocumented assumptions.
-9. Commit the changes.
-10. Create a new Git tag/release when appropriate.
+5. Update tool-specific instructions if necessary.
+6. Update the documented version.
+7. Test the documented behavior.
+8. Test the installer when installation behavior changes.
+9. Test the uninstaller when uninstall behavior changes.
+10. Review for undocumented assumptions.
+11. Commit the changes.
+12. Create a new release when appropriate.
 
-Do not update the documentation merely because a version number changed. Review the actual API changes.
+Do not update documentation simply because the package version changed.
+
+Verify the actual API changes first.
 
 ---
 
 # Current Version
 
-This repository currently documents:
-
 ```text
+Package:
 insightsge/laravel-inexphone-sms
+
+Documented version:
 v1.2.0
 ```
 
@@ -645,7 +641,13 @@ v1.1.0  OTP API Support
 v1.2.0  Blacklist API Support
 ```
 
-Release notes should describe only changes that are actually confirmed.
+Release notes should only contain changes that have been verified.
+
+---
+
+# License
+
+Copyright (c) Insights-ge.
 
 ---
 
@@ -653,9 +655,9 @@ Release notes should describe only changes that are actually confirmed.
 
 This repository is not another implementation of the InexPhone API.
 
-It is an **AI knowledge and instruction repository**.
+It is a local AI knowledge and integration skill.
 
-Its purpose is to make AI coding assistants better at working with:
+Its purpose is to give AI coding assistants reliable access to:
 
 ```text
 Laravel
@@ -665,6 +667,10 @@ insightsge/laravel-inexphone-sms
 InexPhone SMS API
 ```
 
-The central principle is:
+without requiring them to crawl external documentation.
 
-> **Use documented behavior, inspect the source when necessary, and never guess API functionality.**
+The core principle is:
+
+> **Use local, documented, source-backed behavior. Inspect the package when necessary. Preserve the existing Laravel architecture. Never guess API functionality.**
+
+Copyright (c) Insights Consulting

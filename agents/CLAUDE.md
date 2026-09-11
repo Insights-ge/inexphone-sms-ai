@@ -94,7 +94,7 @@ Do not invent alternative method names.
 
 ```php
 $response = Sms::send(
-    phone: '995551563555',
+    phone: '995555111111',
     subject: 'MyApp',
     message: 'Hello from Laravel!',
 );
@@ -114,7 +114,7 @@ deliveryCallbackUrl
 
 ```php
 $response = Sms::sendCommercial(
-    phone: '995551563555',
+    phone: '995555111111',
     subject: 'MyApp',
     message: 'Your commercial message.',
 );
@@ -129,7 +129,7 @@ $response = Sms::sendBulk(
     subject: 'MyApp',
     message: 'Your message.',
     phoneNumbers: [
-        '995551563555',
+        '995555111111',
         '995599999999',
     ],
 );
@@ -177,7 +177,7 @@ Only use query parameters confirmed by the InexPhone documentation.
 
 ```php
 $response = Sms::sendOtp(
-    phone: '995551563555',
+    phone: '995555111111',
     subject: 'MyApp',
 );
 ```
@@ -194,7 +194,7 @@ Example:
 
 ```php
 $response = Sms::sendOtp(
-    phone: '995551563555',
+    phone: '995555111111',
     subject: 'MyApp',
     text: 'Your verification code is: {{CODE}}',
     expiresIn: 60,
@@ -212,7 +212,7 @@ Keep the OTP `subject` within the API's allowed length.
 
 ```php
 $response = Sms::verifyOtp(
-    phone: '995551563555',
+    phone: '995555111111',
     code: '1552',
 );
 ```
@@ -336,7 +336,7 @@ use Inexphone\Sms\Exceptions\SmsException;
 
 try {
     $response = Sms::send(
-        phone: '995551563555',
+        phone: '995555111111',
         subject: 'MyApp',
         message: 'Hello!',
     );
@@ -462,7 +462,7 @@ Never:
 Use placeholders such as:
 
 ```text
-995551563555
+995555111111
 your-api-token
 sms-uuid
 blacklist-id

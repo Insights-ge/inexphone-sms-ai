@@ -95,7 +95,7 @@ Do not invent additional methods.
 
 ```php
 $response = Sms::send(
-    phone: '995551563555',
+    phone: '995555111111',
     subject: 'MyApp',
     message: 'Hello from Laravel!',
 );
@@ -115,7 +115,7 @@ deliveryCallbackUrl
 
 ```php
 $response = Sms::sendCommercial(
-    phone: '995551563555',
+    phone: '995555111111',
     subject: 'MyApp',
     message: 'Your commercial message.',
 );
@@ -130,7 +130,7 @@ $response = Sms::sendBulk(
     subject: 'MyApp',
     message: 'Your message.',
     phoneNumbers: [
-        '995551563555',
+        '995555111111',
         '995599999999',
     ],
 );
@@ -178,7 +178,7 @@ Only use query parameters that are documented for the relevant endpoint.
 
 ```php
 $response = Sms::sendOtp(
-    phone: '995551563555',
+    phone: '995555111111',
     subject: 'MyApp',
 );
 ```
@@ -195,7 +195,7 @@ Example:
 
 ```php
 $response = Sms::sendOtp(
-    phone: '995551563555',
+    phone: '995555111111',
     subject: 'MyApp',
     text: 'Your verification code is: {{CODE}}',
     expiresIn: 60,
@@ -213,7 +213,7 @@ Keep the subject within the API's allowed length.
 
 ```php
 $response = Sms::verifyOtp(
-    phone: '995551563555',
+    phone: '995555111111',
     code: '1552',
 );
 ```
@@ -345,7 +345,7 @@ Example:
 ```php
 try {
     $response = Sms::send(
-        phone: '995551563555',
+        phone: '995555111111',
         subject: 'MyApp',
         message: 'Hello!',
     );
@@ -458,7 +458,7 @@ Use placeholders:
 
 ```text
 your-api-token
-995551563555
+995555111111
 sms-uuid
 blacklist-id
 ```

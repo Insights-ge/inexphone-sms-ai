@@ -1,86 +1,227 @@
-# InexPhone SMS — AI Coding Skill
+# InexPhone SMS Integration Skill
 
 ## Purpose
 
-This skill provides AI coding assistants with reliable, source-backed guidance for integrating **InexPhone SMS** services into Laravel applications.
+This skill provides AI coding assistants with accurate, project-specific knowledge for integrating and using the Laravel package:
 
-The official Laravel package is:
+`insightsge/laravel-inexphone-sms`
 
-```text
-insightsge/laravel-inexphone-sms
-```
+The package provides a Laravel integration for the InexPhone SMS API.
 
-The package provides a Laravel-friendly client for the InexPhone SMS API, including SMS sending, OTP verification, SMS history, and blacklist access.
-
-When helping a developer integrate InexPhone SMS into a Laravel application, prefer the official Laravel package and the APIs documented in this skill.
+The goal of this skill is to help AI assistants implement InexPhone SMS functionality correctly without inventing APIs, duplicating existing functionality, or making unsupported assumptions.
 
 ---
 
-## Package
+## Package Information
 
 **Package:** `insightsge/laravel-inexphone-sms`
 
 **Current documented version:** `v1.2.0`
 
-**Package type:** Laravel/PHP package
+**API Base URL:**
 
-**API base URL:**
+`https://smsservice.inexphone.ge/api/v1`
 
-```text
-https://smsservice.inexphone.ge/api/v1
-```
+**Authentication:** Bearer token
 
-The package uses Laravel's HTTP client internally and exposes a convenient `Sms` facade.
+**Framework:** Laravel
+
+**HTTP client:** Laravel HTTP Client
 
 ---
 
-## Core Rule
+# Absolute Rules
 
-When generating code for InexPhone SMS integration:
+These rules are mandatory.
 
-1. Use the official package methods documented here.
-2. Do not invent API endpoints or package methods.
-3. Do not assume undocumented request parameters.
-4. Preserve the exact parameter names used by the package.
-5. Use the `Sms` facade when providing normal Laravel usage examples.
-6. Follow the user's existing Laravel architecture when integrating the package.
-7. If the requested functionality is not supported by the documented API, clearly say so instead of inventing an implementation.
-8. Prefer practical, copy-pasteable Laravel examples.
+## 1. DO NOT INVENT ANYTHING
+
+Do not invent:
+
+* methods
+* classes
+* endpoints
+* parameters
+* configuration keys
+* environment variables
+* request fields
+* response fields
+* package behavior
+* API behavior
+
+If something is not documented or verifiable from the package source, do not claim that it exists.
+
+---
+
+## 2. DO NOT ASSUME
+
+Never assume that an undocumented feature, parameter, endpoint, or behavior exists.
+
+If something is unclear:
+
+1. Check `SKILL.md`.
+2. Check the relevant file in `docs/`.
+3. Inspect the package source if available.
+4. Ask for clarification if it still cannot be verified.
+
+Do not turn assumptions into implementation.
+
+---
+
+## 3. DO NOT CREATE DUPLICATE IMPLEMENTATIONS
+
+If the package already provides functionality, use the package's existing API.
+
+Do not create your own:
+
+* HTTP client
+* API wrapper
+* service
+* helper
+* request implementation
+* authentication implementation
+* endpoint implementation
+
+unless the user explicitly requests it.
+
+---
+
+## 4. DO NOT BYPASS THE PACKAGE
+
+When functionality is already provided by the package, use the package instead of making direct HTTP requests to InexPhone.
+
+For example, prefer:
+
+```php
+use Inexphone\Sms\Facades\Sms;
+
+Sms::send(
+    $phone,
+    $subject,
+    $message
+);
+```
+
+Do not replace this with a manually implemented request such as:
+
+```php
+Http::withToken($token)->post(...);
+```
+
+when the package already provides the required functionality.
+
+---
+
+## 5. DO NOT CHANGE THE PUBLIC API UNNECESSARILY
+
+Do not:
+
+* rename public methods
+* change method signatures
+* remove public methods
+* change documented behavior
+* introduce breaking changes
+
+unless explicitly requested.
+
+---
+
+## 6. DOCUMENTATION IS THE SOURCE OF TRUTH
+
+The following files contain the detailed package documentation:
+
+* `docs/installation.md`
+* `docs/sms.md`
+* `docs/otp.md`
+* `docs/blacklist.md`
+
+Use these documents together with `SKILL.md`.
+
+---
+
+## 7. PACKAGE SOURCE OVERRIDES ASSUMPTIONS
+
+If documentation is unclear, inspect the actual package source before making assumptions.
+
+Never fill missing information with guessed code.
+
+---
+
+## 8. IF YOU CANNOT VERIFY IT, SAY SO
+
+If something cannot be verified, explicitly state that it cannot be verified.
+
+Do not present guesses as facts.
+
+---
+
+## 9. PRESERVE THE EXISTING LARAVEL PROJECT
+
+When integrating the package into an existing Laravel application:
+
+* follow the existing architecture
+* follow existing naming conventions
+* follow existing validation patterns
+* follow existing error handling
+* follow existing testing conventions
+* avoid unrelated refactoring
+
+Do not restructure the application unnecessarily.
+
+---
+
+## 10. KEEP CHANGES MINIMAL
+
+Only modify what is required for the requested task.
+
+Do not modify unrelated files.
+
+Do not perform unnecessary refactoring.
+
+---
+
+## 11. DO NOT EXPOSE SECRETS
+
+Never:
+
+* hardcode API tokens
+* commit API tokens
+* print API tokens
+* expose credentials
+* place secrets directly in source code
+
+Use environment variables for credentials.
+
+---
+
+## 12. TEST CHANGES
+
+When modifying InexPhone integration code:
+
+* add or update appropriate tests
+* preserve existing tests
+* run relevant tests
+* verify the implementation before considering the task complete
 
 ---
 
 # Installation
 
-Install the package through Composer:
+Install the package using Composer:
 
 ```bash
 composer require insightsge/laravel-inexphone-sms
 ```
 
-Publish the package configuration if required by the application:
-
-```bash
-php artisan vendor:publish
-```
-
-The package configuration should provide the InexPhone API credentials and connection settings.
-
-The main configuration values are:
-
-```text
-base_url
-token
-language
-timeout
-```
-
-The API token must be kept in the application's environment configuration and should not be hard-coded into source code.
+Do not manually copy the package source into the Laravel application.
 
 ---
 
 # Configuration
 
-The package uses configuration values similar to:
+The package uses environment variables for its configuration.
+
+Example:
 
 ```env
 INEXPHONE_SMS_BASE_URL=https://smsservice.inexphone.ge/api/v1
@@ -89,86 +230,53 @@ INEXPHONE_SMS_LANGUAGE=ka
 INEXPHONE_SMS_TIMEOUT=30
 ```
 
-Use the package configuration file to map these environment variables.
+Never hardcode the API token.
 
-Do not expose the API token in:
-
-* Git repositories
-* frontend JavaScript
-* public documentation
-* screenshots
-* client-side requests
-
-The InexPhone API should be accessed from the Laravel backend.
+After changing environment configuration, use the appropriate Laravel configuration/cache commands when required by the application.
 
 ---
 
-# Laravel Facade
+# Facade
 
-The package provides:
+The package provides the `Sms` facade.
+
+Import it with:
 
 ```php
 use Inexphone\Sms\Facades\Sms;
 ```
 
-The facade provides access to the package's SMS client.
-
-Example:
-
-```php
-$response = Sms::send(
-    phone: '995551563555',
-    subject: 'MyApp',
-    message: 'Hello from Laravel!',
-);
-```
+Use the facade to access the package's SMS, OTP, and blacklist functionality.
 
 ---
 
-# Supported API Methods
+# Supported API
 
-The current package provides:
+The package currently supports the following operations:
 
-| Method                  | API Endpoint           | Purpose                         |
-| ----------------------- | ---------------------- | ------------------------------- |
-| `Sms::send()`           | `POST /sms/one`        | Send a single SMS               |
-| `Sms::sendCommercial()` | `POST /sms/commercial` | Send a commercial SMS           |
-| `Sms::sendBulk()`       | `POST /sms/bulk`       | Send an SMS to multiple numbers |
-| `Sms::list()`           | `GET /sms`             | Retrieve sent SMS messages      |
-| `Sms::find()`           | `GET /sms/{uuid}`      | Retrieve one SMS by UUID        |
-| `Sms::sendOtp()`        | `POST /otp/send`       | Send an OTP                     |
-| `Sms::verifyOtp()`      | `POST /otp/verify`     | Verify an OTP                   |
-| `Sms::blacklists()`     | `GET /blacklists`      | Retrieve blacklist records      |
-| `Sms::findBlacklist()`  | `GET /blacklists/{id}` | Retrieve one blacklist record   |
+| Method             | HTTP | Endpoint           | Purpose                      |
+| ------------------ | ---- | ------------------ | ---------------------------- |
+| `send()`           | POST | `/sms/one`         | Send a single SMS            |
+| `sendCommercial()` | POST | `/sms/commercial`  | Send a commercial SMS        |
+| `sendBulk()`       | POST | `/sms/bulk`        | Send SMS to multiple numbers |
+| `list()`           | GET  | `/sms`             | Get SMS list                 |
+| `find()`           | GET  | `/sms/{uuid}`      | Get a single SMS             |
+| `sendOtp()`        | POST | `/otp/send`        | Send an OTP                  |
+| `verifyOtp()`      | POST | `/otp/verify`      | Verify an OTP                |
+| `blacklists()`     | GET  | `/blacklists`      | Get blacklist records        |
+| `findBlacklist()`  | GET  | `/blacklists/{id}` | Get one blacklist record     |
+
+Only use documented methods and endpoints.
 
 ---
 
-# Single SMS
+# SMS API
 
-Use `Sms::send()` to send one SMS.
+## Send Single SMS
 
-```php
-use Inexphone\Sms\Facades\Sms;
+Use `send()` to send a single SMS.
 
-$response = Sms::send(
-    phone: '995551563555',
-    subject: 'MyApp',
-    message: 'Your message here.',
-);
-```
-
-### Parameters
-
-```text
-phone
-subject
-message
-ignoreBlacklist
-submitCallbackUrl
-deliveryCallbackUrl
-```
-
-Method signature:
+Signature:
 
 ```php
 Sms::send(
@@ -177,11 +285,51 @@ Sms::send(
     string $message,
     bool $ignoreBlacklist = false,
     ?string $submitCallbackUrl = null,
-    ?string $deliveryCallbackUrl = null,
+    ?string $deliveryCallbackUrl = null
 );
 ```
 
-`ignoreBlacklist` can be used to request that the SMS be sent even if the recipient is on the blacklist, subject to InexPhone API behavior and account permissions.
+Example:
+
+```php
+$response = Sms::send(
+    '+9955XXXXXXXX',
+    'MyApp',
+    'Your verification code is 1234.'
+);
+```
+
+Optional blacklist handling:
+
+```php
+$response = Sms::send(
+    '+9955XXXXXXXX',
+    'MyApp',
+    'Your message',
+    true
+);
+```
+
+Optional callbacks:
+
+```php
+$response = Sms::send(
+    '+9955XXXXXXXX',
+    'MyApp',
+    'Your message',
+    false,
+    'https://example.com/sms/submit-callback',
+    'https://example.com/sms/delivery-callback'
+);
+```
+
+### Important
+
+The subject must comply with the API's subject restrictions.
+
+The InexPhone API restricts the subject to a maximum of **11 characters**.
+
+Do not invent longer subject values.
 
 ---
 
@@ -190,26 +338,16 @@ Sms::send(
 Use:
 
 ```php
-Sms::sendCommercial(
-    phone: '995551563555',
-    subject: 'MyApp',
-    message: 'Your commercial message.',
-);
+Sms::sendCommercial(...)
 ```
 
-This calls:
+for commercial SMS functionality.
 
-```text
-POST /sms/commercial
-```
+Before implementing or modifying commercial SMS behavior, consult:
 
-Parameters:
+`docs/sms.md`
 
-```text
-phone
-subject
-message
-```
+Do not invent request parameters or endpoint behavior.
 
 ---
 
@@ -218,312 +356,334 @@ message
 Use:
 
 ```php
-$response = Sms::sendBulk(
-    subject: 'MyApp',
-    message: 'Your message.',
-    phoneNumbers: [
-        '995551563555',
-        '995599999999',
-    ],
+Sms::sendBulk(
+    string $subject,
+    string $message,
+    array $phoneNumbers,
+    ?string $submitCallbackUrl = null,
+    ?string $deliveryCallbackUrl = null
 );
 ```
 
-This calls:
+Example:
 
-```text
-POST /sms/bulk
+```php
+$response = Sms::sendBulk(
+    'MyApp',
+    'Your promotional message.',
+    [
+        '+9955XXXXXXXX',
+        '+9955YYYYYYYY',
+    ]
+);
 ```
 
-The `phoneNumbers` argument must be an array of strings.
+With callbacks:
 
-Optional callback parameters:
-
-```text
-submitCallbackUrl
-deliveryCallbackUrl
+```php
+$response = Sms::sendBulk(
+    'MyApp',
+    'Your message.',
+    [
+        '+9955XXXXXXXX',
+        '+9955YYYYYYYY',
+    ],
+    'https://example.com/sms/submit-callback',
+    'https://example.com/sms/delivery-callback'
+);
 ```
+
+Do not manually loop over `Sms::send()` when the intended operation is supported by `sendBulk()`.
 
 ---
 
-# SMS Listing
+# List SMS
 
 Use:
+
+```php
+Sms::list()
+```
+
+to retrieve SMS records.
+
+Example:
 
 ```php
 $response = Sms::list();
 ```
 
-Optional query parameters can be passed:
+The response may contain:
 
-```php
-$response = Sms::list([
-    'page' => 1,
-    'perPage' => 20,
-]);
-```
+* `data`
+* `meta`
+* `message`
 
-This calls:
-
-```text
-GET /sms
-```
-
-The exact available filtering parameters depend on the InexPhone API documentation.
-
-Do not invent undocumented filters.
+Do not assume a response key exists unless it is documented or verified.
 
 ---
 
-# Find an SMS
+# Find SMS
 
 Use:
 
 ```php
-$response = Sms::find('sms-uuid');
+Sms::find($uuid)
 ```
 
-This calls:
+Example:
 
-```text
-GET /sms/{uuid}
+```php
+$response = Sms::find($uuid);
 ```
 
-The UUID must be supplied as a string.
+The identifier is the SMS UUID.
+
+Do not invent a different identifier format.
 
 ---
 
-# OTP
+# OTP API
 
-The package supports InexPhone's OTP API.
+The package supports sending and verifying OTP codes.
+
+---
 
 ## Send OTP
 
-```php
-use Inexphone\Sms\Facades\Sms;
+Use:
 
-$response = Sms::sendOtp(
-    phone: '995551563555',
-    subject: 'MyApp',
+```php
+Sms::sendOtp(
+    string $phone,
+    string $subject,
+    ?string $text = null,
+    ?int $expiresIn = null,
+    ?int $codeDigits = null
 );
 ```
 
-Optional parameters:
+Example:
 
 ```php
 $response = Sms::sendOtp(
-    phone: '995551563555',
-    subject: 'MyApp',
-    text: 'Your verification code is: {{CODE}}',
-    expiresIn: 60,
-    codeDigits: 4,
+    '+9955XXXXXXXX',
+    'MyApp'
 );
 ```
 
-This calls:
+With custom text:
 
-```text
-POST /otp/send
+```php
+$response = Sms::sendOtp(
+    '+9955XXXXXXXX',
+    'MyApp',
+    'Your verification code is: {{CODE}}'
+);
 ```
 
-Parameters:
+With expiration and code length:
 
-```text
-phone
-subject
-text
-expiresIn
-codeDigits
+```php
+$response = Sms::sendOtp(
+    '+9955XXXXXXXX',
+    'MyApp',
+    null,
+    120,
+    6
+);
 ```
 
-The InexPhone API provides defaults for optional OTP parameters.
+### OTP defaults
 
-The `subject` has an API restriction and should be kept within the allowed length. Do not assume arbitrary subject lengths.
+The API defaults are:
+
+* Text: `Your verification code is: {{CODE}}`
+* Expiration: `60` seconds
+* Code length: `4` digits
+
+Do not assume different defaults.
+
+### Important
+
+The OTP subject is still subject to the API's subject restrictions.
+
+Maximum subject length:
+
+**11 characters**
 
 ---
 
 # Verify OTP
 
-OTP verification uses:
+Use:
 
 ```php
-$response = Sms::verifyOtp(
-    phone: '995551563555',
-    code: '1552',
+Sms::verifyOtp(
+    string $phone,
+    string $code
 );
 ```
 
-This calls:
+Example:
 
-```text
-POST /otp/verify
+```php
+$response = Sms::verifyOtp(
+    '+9955XXXXXXXX',
+    $code
+);
 ```
 
-Request parameters:
+### Critical rule
 
-```text
-phone
-code
-```
+`verifyOtp()` requires only:
 
-Do not add a `subject` parameter to OTP verification.
+* phone
+* code
 
-The verification endpoint accepts the phone number and verification code.
+Do **not** add a subject.
+
+Do not invent additional parameters.
 
 ---
 
-# Blacklists
+# Blacklist API
 
-The package supports reading blacklist records.
+The package currently provides read-only blacklist functionality.
 
-## List Blacklists
+Supported methods:
 
 ```php
-$response = Sms::blacklists();
+Sms::blacklists()
 ```
 
-This calls:
+and:
+
+```php
+Sms::findBlacklist($id)
+```
+
+There are no documented package methods for creating or deleting blacklist records.
+
+Do not invent:
+
+```php
+Sms::addBlacklist(...)
+Sms::deleteBlacklist(...)
+Sms::removeBlacklist(...)
+```
+
+or equivalent methods.
+
+---
+
+# List Blacklists
+
+Use:
+
+```php
+Sms::blacklists()
+```
+
+The blacklist API supports pagination and filters.
+
+Documented query parameters include:
 
 ```text
-GET /blacklists
-```
-
-Pagination can be provided:
-
-```php
-$response = Sms::blacklists([
-    'page' => 1,
-    'perPage' => 20,
-]);
-```
-
-Filtering can be provided:
-
-```php
-$response = Sms::blacklists([
-    'page' => 1,
-    'perPage' => 20,
-    'filters' => [
-        'keywords' => '555',
-        'subjects' => 'MyApp',
-        'number' => '995555555555',
-        'dateEnd' => '11/09/2026',
-    ],
-]);
-```
-
-Supported documented filters:
-
-```text
+page
+perPage
 filters[keywords]
 filters[subjects]
 filters[number]
 filters[dateEnd]
 ```
 
-The API uses `d/m/Y` format for `dateEnd`.
+The `dateEnd` format is:
+
+```text
+d/m/Y
+```
 
 Example:
 
-```text
-11/09/2026
+```php
+$response = Sms::blacklists();
 ```
+
+The response can contain:
+
+```php
+[
+    'data' => [...],
+    'meta' => [...],
+    'message' => 'ok',
+]
+```
+
+Do not assume that `data` contains records. An empty blacklist is a valid response.
 
 ---
 
-# Find a Blacklist Record
+# Find Blacklist
 
 Use:
 
 ```php
-$response = Sms::findBlacklist('blacklist-id');
+Sms::findBlacklist($id)
 ```
-
-This calls:
-
-```text
-GET /blacklists/{id}
-```
-
-The ID must be supplied as a string.
-
----
-
-# Important Blacklist Limitation
-
-The current documented InexPhone API provides blacklist retrieval endpoints:
-
-```text
-GET /blacklists
-GET /blacklists/{id}
-```
-
-The package therefore provides:
-
-```php
-Sms::blacklists();
-Sms::findBlacklist();
-```
-
-Do not invent methods such as:
-
-```php
-Sms::addBlacklist();
-Sms::removeBlacklist();
-Sms::deleteBlacklist();
-```
-
-unless InexPhone officially documents corresponding endpoints.
-
-Blacklist retrieval and the `ignoreBlacklist` option on SMS sending are related concepts, but `ignoreBlacklist` does not add or remove blacklist records.
-
----
-
-# Error Handling
-
-The package uses:
-
-```php
-Inexphone\Sms\Exceptions\SmsException
-```
-
-API failures are converted into `SmsException`.
 
 Example:
 
 ```php
-use Inexphone\Sms\Exceptions\SmsException;
-use Inexphone\Sms\Facades\Sms;
-
-try {
-    $response = Sms::send(
-        phone: '995551563555',
-        subject: 'MyApp',
-        message: 'Hello!',
-    );
-} catch (SmsException $exception) {
-    // Handle InexPhone API error.
-}
+$response = Sms::findBlacklist('2');
 ```
 
-The exception can contain:
+The blacklist identifier is a string.
 
-* API error message
-* HTTP status code
-* validation errors when provided by the API
+If the requested ID does not exist, the API may return an error.
 
-AI-generated code should not silently ignore `SmsException` when the developer needs explicit API error handling.
+Do not interpret a missing blacklist record as a package implementation failure without checking the actual API response.
 
 ---
 
-# API Authentication
+# Blacklist vs ignoreBlacklist
 
-The package authenticates requests using a bearer token.
+The `ignoreBlacklist` argument of `Sms::send()` controls blacklist behavior when sending an SMS.
 
-The API token should be stored securely in Laravel's environment configuration.
+It does **not** create, update, or delete blacklist records.
 
-Do not generate or expose fake API tokens in production examples.
+Do not confuse:
 
-When credentials are unavailable, use placeholders such as:
+```php
+Sms::send(
+    $phone,
+    $subject,
+    $message,
+    true
+);
+```
+
+with a blacklist-management operation.
+
+---
+
+# Authentication
+
+The package communicates with the InexPhone API using a bearer token.
+
+The API token must be configured through environment configuration.
+
+Never put a real token directly into:
+
+* controllers
+* models
+* services
+* routes
+* tests committed to source control
+* documentation
+* README files
+
+Use:
 
 ```env
 INEXPHONE_SMS_TOKEN=your-api-token
@@ -533,165 +693,348 @@ INEXPHONE_SMS_TOKEN=your-api-token
 
 # Language
 
-The package supports an `Accept-Language` configuration value.
+The package supports configurable request language through:
 
-The default language is:
-
-```text
-ka
+```env
+INEXPHONE_SMS_LANGUAGE=ka
 ```
 
-The package sends the configured language with API requests.
+Use the package configuration rather than manually constructing language headers in application code.
+
+Do not invent unsupported language codes.
 
 ---
 
-# HTTP Timeout
+# Timeout
 
-The package supports a configurable HTTP timeout.
+The HTTP timeout can be configured through:
 
-The default timeout is:
-
-```text
-30 seconds
+```env
+INEXPHONE_SMS_TIMEOUT=30
 ```
 
-Applications can configure this value according to their requirements.
+Use the package configuration instead of creating a separate HTTP timeout implementation.
 
 ---
 
-# Return Values
+# Responses
 
-The package methods return:
+Package methods return arrays containing API response data.
+
+Depending on the endpoint, responses may contain:
 
 ```php
-array
+[
+    'data' => ...,
+    'meta' => ...,
+    'message' => ...
+]
 ```
 
-The response is decoded from the InexPhone API JSON response.
+Do not assume every endpoint returns the exact same structure.
 
-Typical successful responses may contain:
-
-```text
-data
-meta
-message
-```
-
-The exact response structure can vary by endpoint.
-
-Do not assume every endpoint returns exactly the same structure.
+Check the relevant documentation or actual API response before accessing nested fields.
 
 ---
 
-# Laravel Integration Guidance
+# Error Handling
 
-When integrating the package into an existing Laravel application:
+The package provides:
 
-* Keep API calls on the backend.
-* Do not put the InexPhone API token in frontend code.
-* Use dependency injection when appropriate for application services.
-* Use the `Sms` facade for simple integrations.
-* Use `SmsClientInterface` when an application service benefits from dependency injection and easier testing.
-* Handle `SmsException` where API failures need application-specific behavior.
-* Keep credentials in `.env`.
-* Validate user-provided phone numbers and message data before sending.
-* Avoid exposing raw API credentials or internal API errors to end users.
+```php
+SmsException
+```
+
+for package/API-related failures.
+
+Do not silently ignore package exceptions.
+
+Example:
+
+```php
+use Inexphone\Sms\Exceptions\SmsException;
+
+try {
+    $response = Sms::send(
+        '+9955XXXXXXXX',
+        'MyApp',
+        'Your message'
+    );
+} catch (SmsException $e) {
+    // Handle the SMS API/package error.
+}
+```
+
+Follow the application's existing exception-handling conventions.
+
+Do not expose internal API errors or credentials directly to end users unless the application explicitly requires it.
+
+---
+
+# Laravel Integration Guidelines
+
+When integrating the package into a Laravel application:
+
+* use dependency injection where appropriate
+* use the `Sms` facade when appropriate
+* keep API logic out of Blade templates
+* avoid duplicating package functionality
+* follow the application's existing service/controller architecture
+* validate user input before sending requests
+* handle API failures appropriately
+* do not expose API credentials
+* keep environment-specific configuration in `.env`
+
+Do not introduce a new service layer solely to wrap one package method unless the application's architecture requires it.
+
+---
+
+# Controllers
+
+Controllers should coordinate application behavior rather than manually implement the InexPhone API.
+
+Good:
+
+```php
+public function sendCode(Request $request)
+{
+    $response = Sms::sendOtp(
+        $request->phone,
+        'MyApp'
+    );
+
+    return response()->json($response);
+}
+```
+
+Avoid manually implementing the API request in the controller when the package already provides the required functionality.
+
+---
+
+# Validation
+
+Validate user input before passing it to the package.
+
+Example:
+
+```php
+$request->validate([
+    'phone' => ['required', 'string'],
+]);
+```
+
+Use the project's existing Form Request conventions when appropriate.
+
+Do not add validation rules that are not required by the application or verified API requirements.
 
 ---
 
 # Testing
 
-The package is designed to be tested using Laravel's HTTP client fakes.
+When testing application code that uses the package:
 
-Example:
+* test your application's behavior
+* mock/fake external HTTP communication where appropriate
+* avoid requiring the real InexPhone API for every automated test
+* never commit real API credentials
+* keep tests deterministic
 
-```php
-Http::fake([
-    'https://smsservice.inexphone.ge/api/v1/*' => Http::response([
-        'message' => 'ok',
-        'data' => [],
-    ], 200),
-]);
-```
+When modifying the package itself:
 
-The package's own test suite covers:
-
-* Single SMS
-* Commercial SMS
-* Bulk SMS
-* SMS listing
-* SMS lookup
-* OTP sending
-* OTP verification
-* Blacklist listing
-* Blacklist filtering
-* Blacklist lookup
-* API error handling
-
-The package also uses PHPStan for static analysis.
+* update package tests
+* run PHPUnit
+* run PHPStan when configured
+* verify the public API remains compatible
 
 ---
 
-# AI Response Guidelines
+# Common Mistakes
 
-When a developer asks how to use InexPhone with Laravel:
+## Mistake 1: Inventing methods
 
-### Prefer
-
-```php
-use Inexphone\Sms\Facades\Sms;
-
-Sms::send(...);
-```
-
-### Do not
-
-Invent package APIs such as:
+Wrong:
 
 ```php
-Sms::sendMessage();
-Sms::sendVerification();
-Sms::getBlacklist();
+Sms::sendVerificationCode(...)
 ```
 
-when the documented package method has a different name.
+if that method does not exist.
 
-Use the actual methods:
+Use the documented API:
 
-```text
-send
-sendCommercial
-sendBulk
-list
-find
-sendOtp
-verifyOtp
-blacklists
-findBlacklist
+```php
+Sms::sendOtp(...)
 ```
 
-### If the user asks for unsupported functionality
+---
 
-Clearly explain that the current documented API/package does not provide that functionality.
+## Mistake 2: Adding parameters that do not exist
 
-Do not create fictional endpoints or pretend that an unsupported operation exists.
+Wrong:
 
-### If the user's request is ambiguous
+```php
+Sms::verifyOtp(
+    $phone,
+    $code,
+    $subject
+);
+```
 
-Ask only for the information necessary to determine the correct implementation, while still providing a useful example when possible.
+Correct:
+
+```php
+Sms::verifyOtp(
+    $phone,
+    $code
+);
+```
+
+---
+
+## Mistake 3: Direct API calls
+
+Do not manually reproduce package functionality with:
+
+```php
+Http::withToken(...)
+```
+
+when the package already provides the operation.
+
+---
+
+## Mistake 4: Inventing blacklist mutations
+
+Do not create:
+
+```php
+Sms::addBlacklist(...)
+```
+
+or:
+
+```php
+Sms::deleteBlacklist(...)
+```
+
+because the documented package API currently provides blacklist listing and lookup, not those mutation methods.
+
+---
+
+## Mistake 5: Assuming an empty response means failure
+
+For example:
+
+```php
+[
+    'data' => [],
+    'meta' => [
+        'pagination' => [
+            'total' => 0,
+        ],
+    ],
+    'message' => 'ok',
+]
+```
+
+can simply mean that there are currently no blacklist records.
+
+---
+
+## Mistake 6: Hardcoding credentials
+
+Never do:
+
+```php
+$token = 'real-api-token';
+```
+
+Use environment configuration.
+
+---
+
+## Mistake 7: Reimplementing bulk SMS manually
+
+Do not unnecessarily do:
+
+```php
+foreach ($phones as $phone) {
+    Sms::send($phone, $subject, $message);
+}
+```
+
+when the intended operation is supported by:
+
+```php
+Sms::sendBulk(
+    $subject,
+    $message,
+    $phones
+);
+```
 
 ---
 
 # Source of Truth
 
-This skill should remain aligned with the official **Laravel InexPhone SMS** package and the official InexPhone API documentation.
+When working with this package, use the following priority:
 
-When package behavior and assumptions conflict, prefer verified package behavior and official API documentation.
+### 1. Actual package source
 
-The AI should distinguish between:
+If available, verify behavior against the package source.
 
-1. Features implemented by the Laravel package.
-2. Features exposed by the InexPhone API.
-3. Features that are not currently documented or supported.
+### 2. Package documentation
 
-Never present an undocumented feature as supported.
+Use:
+
+```text
+docs/installation.md
+docs/sms.md
+docs/otp.md
+docs/blacklist.md
+```
+
+### 3. SKILL.md
+
+This file provides the consolidated knowledge and rules for AI assistants.
+
+### 4. User's explicit requirements
+
+If the user explicitly requests behavior that differs from the documented package behavior, explain the difference and implement only what is technically supported.
+
+Never invent missing functionality.
+
+---
+
+# Final Checklist
+
+Before completing an InexPhone SMS integration task, verify:
+
+* [ ] The package `insightsge/laravel-inexphone-sms` is being used.
+* [ ] The requested method actually exists.
+* [ ] The requested endpoint is documented.
+* [ ] All parameters are verified.
+* [ ] No undocumented parameters were added.
+* [ ] No duplicate HTTP implementation was created.
+* [ ] API credentials are stored securely.
+* [ ] Existing Laravel architecture was preserved.
+* [ ] Appropriate validation exists.
+* [ ] Errors are handled appropriately.
+* [ ] Tests were added or updated when necessary.
+* [ ] No unrelated files were modified.
+
+---
+
+# Final Principle
+
+> **If it isn't documented or verifiable from the package source, don't invent it.**
+
+**Do not invent.**
+
+**Do not assume.**
+
+**Do not bypass the package.**
+
+**Do not duplicate functionality that already exists.**
+
+**Verify first, implement second.**
