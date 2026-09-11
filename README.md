@@ -1,16 +1,44 @@
 # InexPhone SMS Integration Skill
 
-Official local AI assistant skill for integrating the **InexPhone SMS Laravel package** using OpenAI Codex, Claude Code, Gemini CLI, Cursor, Junie, OpenCode, and other AI coding tools.
+Official AI assistant skill for integrating the **InexPhone SMS Laravel package** using OpenAI Codex, Claude Code, Gemini CLI, Cursor, Junie, OpenCode, and other AI coding tools.
 
-This repository packages local source-backed InexPhone SMS package documentation, compact indexes, prompts, examples, and tool-specific instruction files so AI coding tools can help with Laravel SMS integrations without guessing API behavior or crawling external documentation.
+## 🤖 Official AI Assistant Skill
 
-Package:
+<p align="center">
+  <a href="https://github.com/Insights-ge/inexphone-sms-package" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/AI%20ASSISTANT%20FOR-INEXPHONE%20SMS-8B5CF6?style=for-the-badge" alt="AI Assistant for InexPhone SMS">
+  </a>
+</p>
+
+<p align="center">
+  This repository is the official AI assistant skill and local knowledge
+  companion for the
+  <a href="https://github.com/Insights-ge/inexphone-sms-package"><strong>InexPhone SMS Laravel Package</strong></a>.
+</p>
+
+<p align="center">
+  <a href="https://github.com/Insights-ge/inexphone-sms-package" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/MAIN%20PACKAGE-6366F1?style=for-the-badge" alt="Main Package">
+  </a>
+  <a href="https://packagist.org/packages/insightsge/laravel-inexphone-sms" target="_blank" rel="noopener noreferrer">
+    <img src="https://img.shields.io/badge/PACKAGIST-F28D1A?style=for-the-badge" alt="Packagist">
+  </a>
+</p>
+
+This repository provides **local, source-backed knowledge** for AI coding assistants working with the InexPhone SMS Laravel package.
+
+It contains package documentation, compact indexes, prompts, examples, and tool-specific instruction files so AI coding tools can help implement Laravel SMS integrations without guessing API behavior or relying on external documentation.
+
+**Main Package Repository:**
+https://github.com/Insights-ge/inexphone-sms-package
+
+**Composer Package:**
 
 ```text
 insightsge/laravel-inexphone-sms
 ```
 
-Current documented version:
+**Current documented version:**
 
 ```text
 v1.2.0
@@ -20,10 +48,10 @@ v1.2.0
 
 # Install
 
-Clone the repository:
+Clone the AI skill repository:
 
 ```bash
-git clone https://github.com/Insights-ge/inexphone-sms-package.git
+git clone https://github.com/Insights-ge/inexphone-sms-ai.git
 ```
 
 Enter the AI knowledge repository:
@@ -472,7 +500,7 @@ These are simplified examples. AI assistants should read the relevant documentat
 
 The skill follows several strict rules.
 
-### Do not invent
+### Do Not Invent
 
 Never invent:
 
@@ -488,7 +516,7 @@ Blacklist operations
 
 If required information is not documented, inspect the installed package source.
 
-### Inspect before modifying
+### Inspect Before Modifying
 
 Before changing an existing Laravel application:
 
@@ -501,7 +529,7 @@ Reuse existing conventions
 Make minimal changes
 ```
 
-### Protect credentials
+### Protect Credentials
 
 Never hardcode or expose:
 
@@ -511,15 +539,15 @@ INEXPHONE_SMS_TOKEN
 
 Use environment variables.
 
-### Do not duplicate functionality
+### Do Not Duplicate Functionality
 
 If the project already has a suitable service, controller, validation rule, or integration pattern, reuse it instead of creating unnecessary duplicates.
 
-### Do not bypass the package
+### Do Not Bypass The Package
 
 Use the package's existing public API whenever it supports the required operation.
 
-### Test safely
+### Test Safely
 
 Do not send real SMS messages from normal automated tests.
 
@@ -529,23 +557,38 @@ Use Laravel HTTP fakes where appropriate.
 
 # Source of Truth
 
-The skill follows this priority:
+This AI skill is specifically designed for:
+
+```text
+insightsge/laravel-inexphone-sms
+```
+
+Main package repository:
+
+```text
+https://github.com/Insights-ge/inexphone-sms-package
+```
+
+The source priority is:
 
 ```text
 1. Installed package source
-          ↓
-2. Local skill documentation
-          ↓
-3. AI-generated code
+2. Main package repository
+3. Local AI skill documentation
+4. AI-generated code
 ```
 
 The installed package source has the highest authority for the exact version being used.
 
-The local documentation is based on the documented package behavior.
+The main package repository is the canonical development repository for the Laravel package.
+
+This AI skill repository provides additional local documentation, examples, prompts, and tool-specific instructions for AI coding assistants.
 
 AI-generated code is never a source of truth.
 
-If the AI output conflicts with the package source, inspect the actual implementation and correct the generated code.
+If AI-generated code conflicts with the installed package source, inspect the actual implementation and correct the generated code.
+
+If the local skill documentation conflicts with the actual package implementation, the actual installed package source takes priority.
 
 ---
 
@@ -628,6 +671,12 @@ Verify the actual API changes first.
 Package:
 insightsge/laravel-inexphone-sms
 
+Main Repository:
+https://github.com/Insights-ge/inexphone-sms-package
+
+AI Skill Repository:
+https://github.com/Insights-ge/inexphone-sms-ai
+
 Documented version:
 v1.2.0
 ```
@@ -653,21 +702,23 @@ Copyright (c) Insights-ge.
 
 # Repository Goal
 
-This repository is not another implementation of the InexPhone API.
+This repository is **not another implementation of the InexPhone API**.
 
-It is a local AI knowledge and integration skill.
+It is the **official AI assistant skill and local knowledge repository for the InexPhone SMS Laravel package**.
 
 Its purpose is to give AI coding assistants reliable access to:
 
-```text
-Laravel
-    +
-insightsge/laravel-inexphone-sms
-    +
-InexPhone SMS API
-```
+* The Laravel package's documented functionality
+* Package API methods and parameters
+* InexPhone SMS integration patterns
+* OTP functionality
+* Blacklist functionality
+* Laravel integration examples
+* Testing and troubleshooting guidance
 
-without requiring them to crawl external documentation.
+The skill is maintained as a companion to the main package repository:
+
+https://github.com/Insights-ge/inexphone-sms-package
 
 The core principle is:
 
